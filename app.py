@@ -25,11 +25,11 @@ def remove_input(index):
 # 입력 필드 UI
 st.subheader("📝 입력 필드")
 for index, field in enumerate(st.session_state.input_fields):
-    col1, col2, col3, col4 = st.columns([3, 1.5, 1.5, 0.5])
+    col1, col2, col3 = st.columns([4.5, 1.5, 0.5])
 
     with col1:
         st.session_state.input_fields[index]["text"] = st.text_area(
-            f"입력 {index + 1}", field["text"], key=f"text_{index}"
+            f"입력 {index + 1}", field["text"], key=f"text_{index}", height=128
         )
 
     with col2:
@@ -41,7 +41,6 @@ for index, field in enumerate(st.session_state.input_fields):
         )
         st.session_state.input_fields[index]["llm"] = selected_llm
 
-    with col3:
         # 선택된 모델이 GPT 모델인지, Embedding 모델인지 판별
         if selected_llm in GPT_MODELS:
             valid_types = ["Input", "Output"]
@@ -59,7 +58,7 @@ for index, field in enumerate(st.session_state.input_fields):
             key=f"type_{index}",
         )
 
-    with col4:
+    with col3:
         if st.button("❌", key=f"remove_{index}"):
             remove_input(index)
             st.rerun()
